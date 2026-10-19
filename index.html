@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Catatan Uji Teh</title>
+<meta name="theme-color" content="#2F5D50">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="description" content="Catat dan bandingkan hasil uji coba racikan teh.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128'%3E%3Crect width='128' height='128' rx='28' fill='%232F5D50'/%3E%3Cpath d='M32 62h56v10c0 16-12 28-28 28S32 88 32 72z' fill='%23F3F7F1'/%3E%3Cellipse cx='60' cy='62' rx='28' ry='5' fill='%238FB86A'/%3E%3Cpath d='M88 67h5a9 9 0 0 1 0 18h-7' fill='none' stroke='%23F3F7F1' stroke-width='6' stroke-linecap='round'/%3E%3Crect x='24' y='102' width='72' height='6' rx='3' fill='%23F3F7F1'/%3E%3Cpath d='M60 20c16 2 24 13 22 28-16-1-24-11-22-28z' fill='%238FB86A'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EDF1EA;--surf:#FFFFFF;--ink:#1D2B26;--mut:#5E6E67;--line:#D3DCD2;--acc:#2F5D50;--acc-ink:#FFFFFF;--danger:#B3261E;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141C19;--surf:#1D2824;--ink:#E7EFEA;--mut:#98A9A1;--line:#2E3D37;--acc:#7FC4AE;--acc-ink:#0F1A16;--danger:#F2B8B5}}
+:root[data-theme="dark"]{--bg:#141C19;--surf:#1D2824;--ink:#E7EFEA;--mut:#98A9A1;--line:#2E3D37;--acc:#7FC4AE;--acc-ink:#0F1A16;--danger:#F2B8B5}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Plus Jakarta Sans",system-ui,sans-serif}
+main{max-width:640px;margin:0 auto;padding:20px 16px 96px}
+h1{font-size:1.6rem;font-weight:800;margin:8px 0 2px}
+.sub{color:var(--mut);margin:0 0 16px}
+.bar{display:flex;gap:8px;margin-bottom:12px}
+input,select,textarea,button{font:inherit;color:inherit}
+input,select,textarea{width:100%;background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+button{cursor:pointer;border:1px solid var(--line);background:var(--surf);border-radius:10px;padding:9px 14px;font-weight:600}
+button.pri{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+button.del{color:var(--danger)}
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));padding:14px 20px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.stats{color:var(--mut);font-size:.9rem;margin:0 0 12px}
+.card{display:grid;grid-template-columns:14px 1fr;background:var(--surf);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden}
+.swatch{background:var(--c,#ccc)}
+.body{padding:12px 14px}
+.top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.top strong{font-size:1.05rem}
+.date{color:var(--mut);font-size:.85rem;white-space:nowrap}
+.spec{color:var(--mut);font-size:.9rem;margin:4px 0}
+.rates{display:flex;gap:14px;flex-wrap:wrap;margin:8px 0}
+.rate{font-size:.85rem}
+.dots{letter-spacing:2px;color:var(--acc)}
+.note{margin:6px 0;white-space:pre-wrap}
+.acts{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.acts button{padding:6px 12px;font-size:.88rem}
+.empty{text-align:center;color:var(--mut);padding:40px 12px;border:1px dashed var(--line);border-radius:14px}
+dialog{width:min(560px,100%);max-height:92dvh;border:0;border-radius:18px 18px 0 0;padding:0;background:var(--bg);color:var(--ink);margin:auto auto 0}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+form,.dlg{padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+label{display:block;font-size:.85rem;font-weight:600;margin:12px 0 4px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{padding:4px 10px;font-size:.8rem;font-weight:400;border-radius:999px}
+.sw{display:flex;flex-wrap:wrap;gap:8px}
+.sw button{display:flex;align-items:center;gap:6px;padding:5px 10px;font-size:.8rem;border-radius:999px}
+.sw i{width:16px;height:16px;border-radius:50%;background:var(--c);border:1px solid rgba(0,0,0,.25)}
+.sw button[aria-pressed="true"]{border:2px solid var(--acc)}
+.scale{display:flex;gap:6px}
+.scale button{flex:1;padding:8px 0}
+.scale button[aria-pressed="true"]{background:var(--acc);color:var(--acc-ink);border-color:var(--acc)}
+.foot{display:flex;gap:8px;margin-top:18px}
+.foot button{flex:1}
+textarea{min-height:90px;resize:vertical}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{width:44px;height:44px;flex:none}
+.pick{display:flex;align-items:center;gap:6px;font-size:.88rem;font-weight:600;margin:0 4px 0 0}
+.pick input{width:18px;height:18px;padding:0;accent-color:var(--acc)}
+.fab2{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+.fab2:disabled{opacity:.7;cursor:default}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top;overflow-wrap:anywhere}
+th{font-weight:600;color:var(--mut);width:28%}
+tr.d td,tr.d th{background:color-mix(in srgb,var(--acc) 14%,transparent);color:var(--ink);font-weight:600}
+thead th{color:var(--ink)}
+.sum{margin:8px 0 12px}
+</style>
+</head>
+<body>
+<main>
+  <div class="brand"><svg viewBox="0 0 128 128" role="img" aria-label="Logo teh hijau"><rect width="128" height="128" rx="28" fill="#2F5D50"/><path d="M32 62h56v10c0 16-12 28-28 28S32 88 32 72z" fill="#F3F7F1"/><ellipse cx="60" cy="62" rx="28" ry="5" fill="#8FB86A"/><path d="M88 67h5a9 9 0 0 1 0 18h-7" fill="none" stroke="#F3F7F1" stroke-width="6" stroke-linecap="round"/><rect x="24" y="102" width="72" height="6" rx="3" fill="#F3F7F1"/><path d="M60 20c16 2 24 13 22 28-16-1-24-11-22-28z" fill="#8FB86A"/><path d="M62 24c6 6 12 12 16 20" fill="none" stroke="#2F5D50" stroke-width="2.5" stroke-linecap="round"/></svg><h1>Catatan Uji Teh</h1></div>
+  <p class="sub">Catat tiap percobaan, lalu ubah satu variabel per percobaan.</p>
+  <div class="bar">
+    <input id="q" type="search" placeholder="Cari merek, bahan, atau catatan" aria-label="Cari">
+    <button id="bk" aria-label="Cadangan data">Cadangan</button>
+  </div>
+  <p class="stats" id="stats"></p>
+  <div id="list"></div>
+</main>
+<button class="pri fab fab2" id="cmp" hidden></button>
+<button class="pri fab" id="add">+ Percobaan baru</button>
+
+<dialog id="dlg"><form id="f" method="dialog" onsubmit="return false">
+  <h2 id="ft" style="margin:0 0 4px">Percobaan baru</h2>
+  <label for="tgl">Tanggal</label><input id="tgl" type="date">
+  <label for="mrk">Merek teh / campuran</label>
+  <input id="mrk" placeholder="Contoh: Sintren 6 g + Poci 3 g">
+  <div class="chips" id="chips"></div>
+  <div class="g2">
+    <div><label for="gr">Takaran teh (g)</label><input id="gr" type="number" step="0.1" min="0" inputmode="decimal"></div>
+    <div><label for="ml">Volume air (ml)</label><input id="ml" type="number" step="10" min="0" inputmode="numeric"></div>
+    <div><label for="sh">Suhu air (°C)</label><input id="sh" type="number" min="0" max="100" inputmode="numeric"></div>
+    <div><label for="wk">Waktu seduh (menit)</label><input id="wk" type="number" step="0.5" min="0" inputmode="decimal"></div>
+  </div>
+  <label for="bhn">Bahan tambahan</label><input id="bhn" placeholder="Gula aren, pandan, jeruk nipis, ...">
+  <label>Warna seduhan</label><div class="sw" id="sw"></div>
+  <label for="arm">Aroma</label><input id="arm" placeholder="Melati kuat, karamel, ...">
+  <label>Manis (1-5)</label><div class="scale" data-k="manis"></div>
+  <label>Pahit (1-5)</label><div class="scale" data-k="pahit"></div>
+  <label>Sepat (1-5)</label><div class="scale" data-k="sepat"></div>
+  <label for="cat">Catatan dan perbaikan berikutnya</label><textarea id="cat"></textarea>
+  <div class="foot"><button type="button" id="cancel">Batal</button><button type="submit" class="pri" id="save">Simpan</button></div>
+</form></dialog>
+
+<dialog id="bkd"><div class="dlg">
+  <h2 style="margin:0 0 4px">Cadangan data</h2>
+  <p class="sub">Data tersimpan di browser ini saja. Salin teks di bawah sebagai cadangan, atau tempel cadangan lama lalu tekan Pulihkan.</p>
+  <textarea id="bkt" aria-label="Data cadangan"></textarea>
+  <p class="stats" id="bkm"></p>
+  <div class="foot"><button id="bkc">Salin</button><button id="bkr" class="pri">Pulihkan</button><button id="bkx">Tutup</button></div>
+</div></dialog>
+
+<dialog id="cd"><div class="dlg">
+  <h2 style="margin:0 0 4px">Perbandingan</h2>
+  <div class="sum" id="cs"></div>
+  <div class="tw"><table id="ct"></table></div>
+  <div class="foot"><button id="cx">Tutup</button></div>
+</div></dialog>
+
+<script>
+const KEY="tehlog:v1";
+const BRANDS=["Cap Poci","Cap Botol","Jambang (Upet)","Premium cap pabrik","Thee 2 Tang","Sintren (Pekalongan)"];
+const COLORS=[["kuning","Kuning pucat","#E4D78A"],["hijau","Hijau","#A9B96B"],["amber","Amber","#D98A2B"],["merah-amber","Merah-amber","#B8431F"],["cokelat","Cokelat","#5E3420"],["biru","Biru-ungu","#6B5BC4"],["merah","Merah","#B01E3F"]];
+const $=id=>document.getElementById(id);
+let data=[],editId=null,cur={};
+function load(){try{const r=localStorage.getItem(KEY);data=r?JSON.parse(r):[]}catch(e){data=[]}if(!Array.isArray(data))data=[]}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}}
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const col=k=>(COLORS.find(c=>c[0]===k)||[0,0,"var(--line)"])[2];
+const dots=n=>n?"●".repeat(n)+"○".repeat(5-n):"–";
+const today=()=>{const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const fmt=d=>{if(!d)return"";const [y,m,t]=d.split("-");return t+"/"+m+"/"+y};
+
+function render(){
+  for(let i=picked.length-1;i>=0;i--)if(!data.some(e=>e.id===picked[i]))picked.splice(i,1);
+  const c=$("cmp");c.hidden=!picked.length;c.disabled=picked.length<2;
+  c.textContent=picked.length<2?"Pilih 1 lagi untuk dibandingkan":"Bandingkan 2 percobaan";
+  const q=$("q").value.trim().toLowerCase();
+  const rows=data.filter(e=>!q||[e.mrk,e.bhn,e.cat,e.arm].join(" ").toLowerCase().includes(q))
+    .sort((a,b)=>(b.tgl||"").localeCompare(a.tgl||"")||b.id-a.id);
+  $("stats").textContent=data.length?rows.length+" dari "+data.length+" percobaan":"";
+  if(!rows.length){$("list").innerHTML='<div class="empty">'+(data.length?"Tidak ada yang cocok dengan pencarian.":"Belum ada catatan. Tekan “Percobaan baru” untuk mulai mencatat uji pertamamu.")+"</div>";return}
+  $("list").innerHTML=rows.map(e=>{
+    const spec=[e.gr&&e.ml?e.gr+" g / "+e.ml+" ml":"",e.sh?e.sh+"°C":"",e.wk?e.wk+" menit":""].filter(Boolean).join(", ");
+    return `<article class="card" style="--c:${col(e.warna)}"><div class="swatch"></div><div class="body">
+      <div class="top"><strong>${esc(e.mrk)||"Tanpa nama"}</strong><span class="date">${fmt(e.tgl)}</span></div>
+      ${spec?`<div class="spec">${esc(spec)}</div>`:""}
+      ${e.bhn?`<div class="spec">Tambahan: ${esc(e.bhn)}</div>`:""}
+      ${e.arm?`<div class="spec">Aroma: ${esc(e.arm)}</div>`:""}
+      <div class="rates"><span class="rate">Manis <span class="dots">${dots(e.manis)}</span></span><span class="rate">Pahit <span class="dots">${dots(e.pahit)}</span></span><span class="rate">Sepat <span class="dots">${dots(e.sepat)}</span></span></div>
+      ${e.cat?`<div class="note">${esc(e.cat)}</div>`:""}
+      <div class="acts"><label class="pick"><input type="checkbox" data-pick="${e.id}" ${picked.includes(e.id)?"checked":""}> Bandingkan</label><button data-a="edit" data-id="${e.id}">Edit</button><button data-a="dup" data-id="${e.id}">Salin jadi percobaan baru</button><button class="del" data-a="del" data-id="${e.id}">Hapus</button></div>
+    </div></article>`}).join("");
+}
+
+function drawForm(){
+  $("sw").innerHTML=COLORS.map(c=>`<button type="button" data-w="${c[0]}" aria-pressed="${cur.warna===c[0]}" style="--c:${c[2]}"><i></i>${c[1]}</button>`).join("");
+  document.querySelectorAll(".scale").forEach(s=>{const k=s.dataset.k;s.innerHTML=[1,2,3,4,5].map(n=>`<button type="button" data-k="${k}" data-n="${n}" aria-pressed="${cur[k]===n}">${n}</button>`).join("")});
+}
+function openForm(e,isEdit){
+  cur=Object.assign({tgl:today(),mrk:"",gr:"",ml:"",sh:"",wk:"",bhn:"",warna:"",arm:"",manis:0,pahit:0,sepat:0,cat:""},e||{});
+  editId=isEdit?cur.id:null;
+  $("ft").textContent=isEdit?"Edit percobaan":"Percobaan baru";
+  [["tgl","tgl"],["mrk","mrk"],["gr","gr"],["ml","ml"],["sh","sh"],["wk","wk"],["bhn","bhn"],["arm","arm"],["cat","cat"]].forEach(([i,k])=>$(i).value=cur[k]??"");
+  drawForm();$("dlg").showModal();
+}
+function readForm(){
+  const n=v=>v===""?"":Number(v);
+  return {tgl:$("tgl").value,mrk:$("mrk").value.trim(),gr:n($("gr").value),ml:n($("ml").value),sh:n($("sh").value),wk:n($("wk").value),bhn:$("bhn").value.trim(),warna:cur.warna,arm:$("arm").value.trim(),manis:cur.manis,pahit:cur.pahit,sepat:cur.sepat,cat:$("cat").value.trim()};
+}
+
+$("chips").innerHTML=BRANDS.map(b=>`<button type="button" class="chip" data-b="${b}">${b}</button>`).join("");
+$("chips").onclick=ev=>{const b=ev.target.dataset.b;if(!b)return;const m=$("mrk");m.value=m.value.trim()?m.value.trim()+" + "+b:b};
+$("sw").onclick=ev=>{const b=ev.target.closest("[data-w]");if(!b)return;cur.warna=cur.warna===b.dataset.w?"":b.dataset.w;Object.assign(cur,readForm(),{warna:cur.warna});drawForm()};
+$("f").onclick=ev=>{const b=ev.target.closest("[data-n]");if(!b)return;const k=b.dataset.k,n=+b.dataset.n,w=cur.warna,m=cur.manis,p=cur.pahit,s=cur.sepat;cur[k]=cur[k]===n?0:n;drawForm()};
+$("save").onclick=()=>{
+  const r=readForm();
+  if(!r.mrk){$("mrk").focus();$("mrk").setCustomValidity("");$("mrk").placeholder="Isi merek atau campuran dulu";return}
+  if(editId){const i=data.findIndex(e=>e.id===editId);if(i>-1)data[i]=Object.assign({id:editId},r)}
+  else data.push(Object.assign({id:Date.now()},r));
+  persist();render();$("dlg").close();
+};
+$("cancel").onclick=()=>$("dlg").close();
+$("add").onclick=()=>openForm(null,false);
+$("q").oninput=render;
+
+let delArm=null;
+$("list").onclick=ev=>{
+  const b=ev.target.closest("button[data-a]");if(!b)return;
+  const id=+b.dataset.id,e=data.find(x=>x.id===id);if(!e)return;
+  if(b.dataset.a==="edit")openForm(e,true);
+  else if(b.dataset.a==="dup")openForm(Object.assign({},e,{id:undefined,tgl:today()}),false);
+  else if(b.dataset.a==="del"){
+    if(delArm===id){data=data.filter(x=>x.id!==id);persist();delArm=null;render()}
+    else{delArm=id;b.textContent="Tekan lagi untuk hapus";setTimeout(()=>{if(delArm===id){delArm=null;b.textContent="Hapus"}},3000)}
+  }
+};
+
+$("bk").onclick=()=>{$("bkt").value=JSON.stringify(data);$("bkm").textContent="";$("bkd").showModal()};
+$("bkx").onclick=()=>$("bkd").close();
+$("bkc").onclick=async()=>{try{await navigator.clipboard.writeText($("bkt").value);$("bkm").textContent="Tersalin."}catch(e){$("bkt").select();$("bkm").textContent="Salin manual: teks sudah dipilih."}};
+$("bkr").onclick=()=>{
+  try{const a=JSON.parse($("bkt").value);if(!Array.isArray(a))throw 0;
+    data=a.filter(e=>e&&typeof e==="object").map((e,i)=>Object.assign({id:Date.now()+i},e));persist();render();$("bkm").textContent="Data dipulihkan: "+data.length+" percobaan."}
+  catch(e){$("bkm").textContent="Format tidak dikenali. Tempel teks cadangan yang utuh."}
+};
+
+const picked=[];
+$("list").addEventListener("change",ev=>{
+  const t=ev.target;if(!t.dataset.pick)return;const id=+t.dataset.pick,i=picked.indexOf(id);
+  if(t.checked){if(i<0)picked.push(id);if(picked.length>2)picked.shift()}else if(i>-1)picked.splice(i,1);
+  render();
+});
+const num=v=>v===""||v==null?"":v;
+const F=[
+ ["Merek / campuran",e=>e.mrk,1],["Takaran teh",e=>num(e.gr)!==""?e.gr+" g":"",1],["Volume air",e=>num(e.ml)!==""?e.ml+" ml":"",1],
+ ["Suhu air",e=>num(e.sh)!==""?e.sh+"°C":"",1],["Waktu seduh",e=>num(e.wk)!==""?e.wk+" menit":"",1],["Bahan tambahan",e=>e.bhn,1],
+ ["Warna",e=>(COLORS.find(c=>c[0]===e.warna)||[0,""])[1],0],["Aroma",e=>e.arm,0],
+ ["Manis",e=>e.manis?e.manis+" / 5":"",0],["Pahit",e=>e.pahit?e.pahit+" / 5":"",0],["Sepat",e=>e.sepat?e.sepat+" / 5":"",0],
+ ["Catatan",e=>e.cat,0]];
+$("cmp").onclick=()=>{
+  const p=picked.map(id=>data.find(e=>e.id===id)).filter(Boolean);if(p.length<2)return;
+  p.sort((x,y)=>(x.tgl||"").localeCompare(y.tgl||"")||x.id-y.id);const [a,b]=p;
+  const norm=v=>String(v??"").trim().toLowerCase();
+  const rows=F.map(([l,g,v])=>({l,v,x:g(a),y:g(b),d:norm(g(a))!==norm(g(b))}));
+  const vd=rows.filter(r=>r.v&&r.d).map(r=>r.l.toLowerCase());
+  let sum=vd.length===0?"Kondisi seduh sama persis, jadi selisih hasil berasal dari variasi tiap seduhan.":
+    vd.length===1?"Beda satu variabel: <b>"+esc(vd[0])+"</b>. Selisih hasil bisa dikaitkan ke sana.":
+    "Beda <b>"+vd.length+" variabel</b> ("+esc(vd.join(", "))+"). Penyebab selisih hasil sulit dipastikan; coba ubah satu variabel per percobaan.";
+  const dl=["manis","pahit","sepat"].filter(k=>a[k]&&b[k]&&a[k]!==b[k]).map(k=>k+" "+(b[k]>a[k]?"+":"−")+Math.abs(b[k]-a[k]));
+  if(dl.length)sum+="<br>Dari A ke B: "+dl.join(", ")+".";
+  $("cs").innerHTML=sum;
+  $("ct").innerHTML='<thead><tr><th></th><th>A<br><small>'+fmt(a.tgl)+'</small></th><th>B<br><small>'+fmt(b.tgl)+'</small></th></tr></thead><tbody>'+
+    rows.map(r=>`<tr class="${r.d?"d":""}"><th>${r.d?"≠ ":""}${r.l}</th><td>${esc(r.x)||"–"}</td><td>${esc(r.y)||"–"}</td></tr>`).join("")+"</tbody>";
+  $("cd").showModal();
+};
+$("cx").onclick=()=>$("cd").close();
+
+load();render();
+if("serviceWorker" in navigator&&location.protocol==="https:"){addEventListener("load",()=>{try{navigator.serviceWorker.register("sw.js").catch(()=>{})}catch(e){}})}
+</script>
+</body>
+</html>
